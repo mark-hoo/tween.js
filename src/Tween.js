@@ -102,7 +102,7 @@ TWEEN.Tween = function ( object ) {
 	var _interpolationFunction = TWEEN.Interpolation.Linear;
 	var _chainedTweens = [];
 	var _onStartCallback = null;
-	var _onStartCallbackFired = false;
+	//var _onStartCallbackFired = false;
 	var _onUpdateCallback = null;
 	var _onCompleteCallback = null;
 	var _onStopCallback = null;
@@ -134,7 +134,13 @@ TWEEN.Tween = function ( object ) {
 
 		_isPlaying = true;
 
-		_onStartCallbackFired = false;
+		//_onStartCallbackFired = false;
+		
+		if ( _onStartCallback !== null ) {
+
+				_onStartCallback.call( _object );
+
+			}
 
 		_startTime = time !== undefined ? time : ( typeof window !== 'undefined' && window.performance !== undefined && window.performance.now !== undefined ? window.performance.now() : Date.now() );
 		_startTime += _delayTime;
@@ -280,7 +286,7 @@ TWEEN.Tween = function ( object ) {
 
 		}
 
-		if ( _onStartCallbackFired === false ) {
+	/*	if ( _onStartCallbackFired === false ) {
 
 			if ( _onStartCallback !== null ) {
 
@@ -290,7 +296,7 @@ TWEEN.Tween = function ( object ) {
 
 			_onStartCallbackFired = true;
 
-		}
+		}*/
 
 		var elapsed = ( time - _startTime ) / _duration;
 		elapsed = elapsed > 1 ? 1 : elapsed;
